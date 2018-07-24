@@ -11,8 +11,14 @@ def transform(func):
     return outer
 
 @transform
+def scale(n, t, point):
+    f = 0.9**n
+    return (point[0]*f, point[1]*f)
+
+@transform
 def downscale(n, t, point):
-    scaled = (point[0]/n, point[1]/n)
+    f = 0.9**n
+    scaled = (point[0]*f, point[1]*f)
     downward = 1-(float(1)/n)
     return (scaled[0], scaled[1] + downward)
 

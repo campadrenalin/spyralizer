@@ -14,3 +14,53 @@ def source(func):
 def circle(n, t):
     phi = n*p2*t
     return (math.cos(phi), math.sin(phi))
+
+@source
+def reverse_circle(n, t):
+    phi = -n*p2*t*5
+    return (math.cos(phi), math.sin(phi))
+
+@source
+def flat(n, t):
+    phi = n*p2*t
+    return (2*math.cos(phi), 0)
+
+def lerp(a, b, percent):
+    percent = float(percent)
+    inverse = 1-percent
+    return (
+        a[0]*inverse + b[0]*percent,
+        a[1]*inverse + b[1]*percent,
+    )
+
+def path(n, t, possibles):
+    l = len(possibles)
+    progress = (n*l*t) % l
+    percent, sector = math.modf(progress)
+    sector = int(sector)
+    s_next = (sector+1) % l
+    return lerp(possibles[sector], possibles[s_next], percent)
+
+@source
+def cross(n, t):
+    return path(n, t, [
+        (-1, -1),
+        (0, 0),
+        (-1,  1),
+        (0, 0),
+        ( 1,  1),
+        (0, 0),
+        ( 1, -1),
+        (0, 0),
+    ])
+
+@source
+def triangle(n, t):
+    return path(3*n, t, [
+        (0, -1),
+        (-1,  1),
+        ( 1,  1),
+    ])
+
+
+choices = (circle, reverse_circle, flat, cross, triangle)
