@@ -1,6 +1,7 @@
-from seed import from_string
-import random, sources, colors
-from transforms import *
+from spyralizer.seed import from_string
+from spyralizer.transforms import *
+from spyralizer import sources, colors
+import random
 
 def plan_basic(seed=None, src_choices=sources.choices, trans=(downscale, rotate, scale), size=256):
     if seed:

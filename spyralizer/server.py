@@ -1,6 +1,6 @@
-from draw import render, plan_basic
+from spyralizer.draw import render, plan_basic
+from spyralizer import colors
 from bottle import route, run, response
-import colors
 
 colors.configure('''
     #1D395C #DDECFF #FFF
