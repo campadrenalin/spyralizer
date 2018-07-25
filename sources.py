@@ -1,6 +1,8 @@
 import math
 p2 = math.pi*2
 
+choices = []
+
 def source(func):
     def outer(n, t, res=200):
         r = float(res)
@@ -8,6 +10,7 @@ def source(func):
             func(n, (t+x/r) % 1)
             for x in range(res)
         ]
+    choices.append(outer)
     return outer
 
 @source
@@ -74,4 +77,17 @@ def saw(n, t):
     x = (n*t*2) % 1 - 0.5
     return (x,x)
 
-choices = (circle, reverse_circle, flat, cross, triangle, tan, saw)
+@source
+def jag(n, t):
+    x = math.floor(n*t*5) % 5
+    return (x,x)
+
+@source
+def wobble1(n, t):
+    return (math.cos(n*t*p2*7)*5, 0)
+
+@source
+def wobble2(n, t):
+    return (math.cos(n*t*p2*7)*3, math.sin(n*t*p2*5)*3)
+
+#choices = (circle,)
