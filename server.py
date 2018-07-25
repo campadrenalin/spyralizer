@@ -15,5 +15,6 @@ def from_seed(seed):
 def from_rand():
     return serve()
 
+# For debug purposes only
 if __name__ == '__main__':
     run(host='localhost', port=8080)

@@ -11,8 +11,9 @@ def plan_basic(seed=None, src_choices=sources.choices, trans=(downscale, rotate,
     for transformation in trans:
         points = transformation(random.randint(4,7), random.random(), points)
     return [
-        ('background', '#000000'),
-        ('lines', '#FFFFFF', points),
+        ('background', (0,0,0)),
+        ('lines', (0.2,0.2,0.2), scale(4, 0, points)),
+        ('lines', (1,1,1), points),
     ]
 
 class Cairo(object):
@@ -25,12 +26,12 @@ class Cairo(object):
         self.ctx.scale(self.w, self.h)
 
     def background(self, color):
-        self.ctx.set_source_rgb(0,0,0)
+        self.ctx.set_source_rgb(*color)
         self.ctx.rectangle(0, 0, 1, 1)
         self.ctx.fill()
 
     def lines(self, color, points):
-        self.ctx.set_source_rgb(1,1,1)
+        self.ctx.set_source_rgb(*color)
         self.ctx.set_line_width(0.01)
         for x, y in points:
             self.ctx.line_to(0.5+x/2,0.5+y/2)
