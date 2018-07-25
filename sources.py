@@ -62,5 +62,16 @@ def triangle(n, t):
         ( 1,  1),
     ])
 
+@source
+def tan(n, t):
+    phi = -n*p2*t
+    return (math.tan(phi), math.atan(phi))
 
-choices = (circle, reverse_circle, flat, cross, triangle)
+@source
+def saw(n, t):
+    if n <= 3:
+        n = -n
+    x = (n*t*2) % 1 - 0.5
+    return (x,x)
+
+choices = (circle, reverse_circle, flat, cross, triangle, tan, saw)
