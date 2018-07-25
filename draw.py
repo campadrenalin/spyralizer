@@ -1,5 +1,5 @@
 from seed import from_string
-import random, sources
+import random, sources, colors
 from transforms import *
 
 def plan_basic(seed=None, src_choices=sources.choices, trans=(downscale, rotate, scale), size=256):
@@ -10,11 +10,12 @@ def plan_basic(seed=None, src_choices=sources.choices, trans=(downscale, rotate,
     points = src_func(random.randint(2,7), random.random(), res=size*5)
     for transformation in trans:
         points = transformation(random.randint(4,7), random.random(), points)
-    return [
-        ('background', (0,0,0)),
-        ('lines', (0.2,0.2,0.2), scale(4, 0, points)),
-        ('lines', (1,1,1), points),
-    ]
+    cols = random.choice(colors.palettes)
+
+    commands = [('background', cols[0]) ]
+    for i, col in enumerate(cols[1:]):
+        commands.append( ('lines', col, scale(5-3*i, 0, points)) )
+    return commands
 
 class Cairo(object):
     def __init__(self, w, h):
