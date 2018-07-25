@@ -8,7 +8,7 @@ def _set_seed(string):
 
     On its own, this is destructive - use the context manager instead.
     '''
-    digest = hashlib.sha256(string).hexdigest()
+    digest = hashlib.sha256(string.encode('utf-8')).hexdigest()
     random.seed( int(digest,16) )
 
 @contextmanager
